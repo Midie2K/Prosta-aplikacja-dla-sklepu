@@ -21,20 +21,22 @@ public class ProductDB {
         return products;
     }
 
-    public boolean buyProduct(String name, int quantity) {
+    public boolean buyProduct(String name, String quantity) {
         for(Product product : this.products) {
-            if(product.getName().equals(name) && (quantity>=0 && quantity <= product.getQuantity())) {
-                product.setQuantity(product.getQuantity()-quantity);
+            int value = Integer.valueOf(quantity);
+            if(product.getName().equals(name) && (value>=0 && value <= product.getQuantity())) {
+                product.setQuantity(product.getQuantity()-value);
                 return true;
             }
         }
         return false;
     }
 
-    public boolean addQuantity(String name, int quantity) {
+    public boolean addQuantity(String name, String quantity) {
         for(Product product : this.products) {
-            if(product.getName().equals(name) && quantity>0 ) {
-                product.setQuantity(product.getQuantity()+quantity);
+            int value = Integer.valueOf(quantity);
+            if(product.getName().equals(name) && value>0 ) {
+                product.setQuantity(product.getQuantity()+value);
                 return true;
             }
         }

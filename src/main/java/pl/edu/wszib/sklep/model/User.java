@@ -5,7 +5,9 @@ public class User {
     private String passwd;
     private Role role;
 
-    public User() {}
+    public User() {
+        this.role=Role.USER;
+    }
 
     public User(String login, String passwd, Role role) {
         this.login = login;

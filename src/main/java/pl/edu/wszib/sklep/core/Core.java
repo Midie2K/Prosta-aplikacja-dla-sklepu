@@ -4,6 +4,7 @@ import pl.edu.wszib.sklep.database.ProductDB;
 import pl.edu.wszib.sklep.database.UserDB;
 import pl.edu.wszib.sklep.gui.GUI;
 import pl.edu.wszib.sklep.model.Role;
+import pl.edu.wszib.sklep.model.User;
 
 public class Core {
     public static void start(){
@@ -19,7 +20,16 @@ public class Core {
             while (!isLoged) {
                 switch (GUI.login()) {
                     case "1":
-                        userDB.register(GUI.regUser());
+                        User user = new User();
+                        boolean registred = false;
+                        do{
+                            user=GUI.readLoginAndPasswd();
+                            if(!userDB.findLogin(user.getLogin())){
+                                registred = true;
+                            }
+                            GUI.showRegisterResult(registred);
+                        }while(!registred);
+                        userDB.register(user);
                         break;
                     case "2":
                         while (!isRunning && counter < 3) {

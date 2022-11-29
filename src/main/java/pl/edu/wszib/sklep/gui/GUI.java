@@ -54,9 +54,9 @@ public class GUI {
         System.out.println("Product name:");
         return scanner.nextLine();
     }
-    public static int readQunatity() {
+    public static String readQunatity() {
         System.out.println("Product quantity:");
-        return scanner.nextInt();
+        return scanner.nextLine();
     }
     public static String readUser(){
         System.out.println("User name:");
@@ -96,21 +96,11 @@ public class GUI {
         user.setPasswd(DigestUtils.md5Hex(scanner.nextLine() + authenticator.seed));
         return user;
     }
-    public static User regUser(){
-        Authenticator authenticator = Authenticator.getIstance();
-        UserDB userDB = UserDB.getInstance();
-        User user = new User();
-        do{
-            if(userDB.findLogin(user.getLogin())){
-                System.out.println("User exist, try other login");}
-
-            System.out.println("Login:");
-            user.setLogin(scanner.nextLine());
-        }while(userDB.findLogin(user.getLogin()));
-
-        System.out.println("Password:");
-        user.setPasswd(DigestUtils.md5Hex(scanner.nextLine() + authenticator.seed));
-        user.setRole(Role.USER);
-        return user;
+    public static void showRegisterResult(boolean result) {
+        if (result) {
+            System.out.println("Registered successful\n");
+        } else {
+            System.out.println("Login is taken, try new login\n");
+        }
     }
 }
