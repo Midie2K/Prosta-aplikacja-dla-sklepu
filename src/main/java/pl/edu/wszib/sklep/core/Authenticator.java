@@ -12,6 +12,7 @@ public class Authenticator {
     public void authenticate(User user) {
         UserDB userDB = UserDB.getInstance();
         User userFromDB = userDB.findByLogin(user.getLogin());
+
         if(userFromDB != null &&
                 userFromDB.getPasswd().equals(
                         (user.getPasswd()))) {

@@ -24,7 +24,7 @@ public class Core {
                         boolean registred = false;
                         do{
                             user=GUI.readLoginAndPasswd();
-                            if(!userDB.findLogin(user.getLogin())){
+                            if(!userDB.ifUserExist(user.getLogin())){
                                 registred = true;
                             }
                             GUI.showRegisterResult(registred);

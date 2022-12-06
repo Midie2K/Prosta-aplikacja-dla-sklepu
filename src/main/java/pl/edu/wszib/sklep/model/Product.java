@@ -1,6 +1,5 @@
 package pl.edu.wszib.sklep.model;
 
-import java.util.Locale;
 
 public class Product {
     private String name;

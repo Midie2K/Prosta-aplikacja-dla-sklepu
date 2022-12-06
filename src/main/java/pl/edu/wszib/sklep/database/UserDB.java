@@ -1,17 +1,15 @@
 package pl.edu.wszib.sklep.database;
 
-import org.apache.commons.codec.digest.DigestUtils;
-import pl.edu.wszib.sklep.core.Authenticator;
 import pl.edu.wszib.sklep.model.Role;
 import pl.edu.wszib.sklep.model.User;
 
 public class UserDB {
     private  User[] users = new User[1];
     private static final UserDB instance = new UserDB();
-    Authenticator authenticator = Authenticator.getIstance();
+
 
     private UserDB(){
-        users[0] = new User("admin",DigestUtils.md5Hex("admin" + authenticator.seed), Role.ADMIN);
+        users[0] = new User("admin","9a58915b0de3f2525c5cf2193903b9fd", Role.ADMIN);
     }
     public static UserDB getInstance(){
         return instance;
@@ -38,7 +36,7 @@ public class UserDB {
         return users;
     }
 
-    public boolean findLogin(String login) {
+    public boolean ifUserExist(String login) {
         for (User user : this.users) {
             if (user.getLogin().equals(login)) {
                 return true;
