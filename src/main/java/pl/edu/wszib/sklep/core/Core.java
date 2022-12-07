@@ -20,7 +20,7 @@ public class Core {
             while (!isLoged) {
                 switch (GUI.login()) {
                     case "1":
-                        User user = new User();
+                        User user;
                         boolean registred = false;
                         do{
                             user=GUI.readLoginAndPasswd();
@@ -62,6 +62,8 @@ public class Core {
                     case "3":
                         isRunning = false;
                         isLoged = false;
+                        counter = 0;
+                        authenticator.loggedUser = null;
                         break;
                     case "4":
                         isRunning = false;
