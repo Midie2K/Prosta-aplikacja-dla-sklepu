@@ -12,6 +12,13 @@ import java.util.Scanner;
 
 public class GUI {
     private static final Scanner scanner = new Scanner(System.in);
+    private static final GUI instance = new GUI();
+
+    private GUI(){}
+
+    public static GUI getInstance(){
+        return instance;
+    }
 
     public static String login(){
         System.out.println("1. Register");
@@ -36,18 +43,15 @@ public class GUI {
     public static void listProducts() {
         ProductDB productDB = ProductDB.getInstance();
         System.out.println("Name\tPrice\tQuantity");
-        for (Product product : productDB.getProducts()) {
-            System.out.println(product);
-        }
+        productDB.getProducts();
         System.out.println("\n");
     }
 
     public static void listUsers(){
         UserDB userDB = UserDB.getInstance();
         System.out.println("Login\tRole");
-        for (User user : userDB.getUsers()) {
-            System.out.println(user);
-        }
+        userDB.getUsers();
+        System.out.println("\n");
     }
 
     public static String readName() {

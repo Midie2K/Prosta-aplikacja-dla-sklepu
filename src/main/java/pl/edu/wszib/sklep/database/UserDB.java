@@ -3,25 +3,23 @@ package pl.edu.wszib.sklep.database;
 import pl.edu.wszib.sklep.model.Role;
 import pl.edu.wszib.sklep.model.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserDB {
-    private  User[] users = new User[1];
+    private List<User> users = new ArrayList<User>();
     private static final UserDB instance = new UserDB();
 
 
     private UserDB(){
-        users[0] = new User("admin","9a58915b0de3f2525c5cf2193903b9fd", Role.ADMIN);
+        users.add(new User("admin","9a58915b0de3f2525c5cf2193903b9fd", Role.ADMIN));
     }
     public static UserDB getInstance(){
         return instance;
     }
 
     public void register(User user){
-        User[] newUsers = new User[this.users.length + 1];
-        for(int i = 0; i < this.users.length; i++) {
-            newUsers[i] = this.users[i];
-        }
-        newUsers[newUsers.length - 1] = user;
-        this.users = newUsers;
+        users.add(user);
     }
     public User findByLogin(String login) {
         for (User user : this.users) {
@@ -32,8 +30,10 @@ public class UserDB {
         return null;
     }
 
-    public User[] getUsers() {
-        return users;
+    public void getUsers() {
+        for(User user:users){
+            System.out.println(user);
+        }
     }
 
     public boolean ifUserExist(String login) {

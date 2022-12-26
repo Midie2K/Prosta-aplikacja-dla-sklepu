@@ -1,28 +1,33 @@
 package pl.edu.wszib.sklep.database;
 
-import pl.edu.wszib.sklep.model.Product;
+import pl.edu.wszib.sklep.model.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDB {
-    private final Product[] products=new Product[5];
+    private final List<Product> ProductDB= new ArrayList<Product>();
     private static final ProductDB instance = new ProductDB();
 
     private ProductDB(){
-        this.products[0] = new Product("gumka",1.29,40);
-        this.products[1] = new Product("pioro",2.19,50);
-        this.products[2] = new Product("zeszyt",4.59,20);
-        this.products[3] = new Product("piurnik",12.99,10);
-        this.products[4] = new Product("plecak",49.99,5);
+        ProductDB.add(new Gumka());
+        ProductDB.add(new Pioro());
+        ProductDB.add(new Zeszyt());
+        ProductDB.add(new Piornik());
+        ProductDB.add(new Plecak());
     }
     public static ProductDB getInstance(){
        return instance;
     }
 
-    public Product[] getProducts() {
-        return products;
+    public void getProducts() {
+        for(Product products : ProductDB){
+            System.out.println(products);
+        }
     }
 
     public boolean buyProduct(String name, String quantity) {
-        for(Product product : this.products) {
+        for(Product product : ProductDB) {
             int value = Integer.valueOf(quantity);
             if(product.getName().equals(name) && (value>=0 && value <= product.getQuantity())) {
                 product.setQuantity(product.getQuantity()-value);
@@ -33,7 +38,7 @@ public class ProductDB {
     }
 
     public boolean addQuantity(String name, String quantity) {
-        for(Product product : this.products) {
+        for(Product product : ProductDB) {
             int value = Integer.valueOf(quantity);
             if(product.getName().equals(name) && value>0 ) {
                 product.setQuantity(product.getQuantity()+value);

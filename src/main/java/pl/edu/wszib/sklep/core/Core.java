@@ -11,6 +11,7 @@ public class Core {
         final ProductDB productDB = ProductDB.getInstance();
         final UserDB userDB = UserDB.getInstance();
         final Authenticator authenticator = Authenticator.getIstance();
+        final GUI gui = GUI.getInstance();
         boolean isRunning = false;
         boolean isLoged = false;
         boolean Exit = false;
@@ -18,22 +19,22 @@ public class Core {
 
         while(!Exit) {
             while (!isLoged) {
-                switch (GUI.login()) {
+                switch (gui.login()) {
                     case "1":
                         User user;
                         boolean registred = false;
                         do{
-                            user=GUI.readLoginAndPasswd();
+                            user=gui.readLoginAndPasswd();
                             if(!userDB.ifUserExist(user.getLogin())){
                                 registred = true;
                             }
-                            GUI.showRegisterResult(registred);
+                            gui.showRegisterResult(registred);
                         }while(!registred);
                         userDB.register(user);
                         break;
                     case "2":
                         while (!isRunning && counter < 3) {
-                            authenticator.authenticate(GUI.readLoginAndPasswd());
+                            authenticator.authenticate(gui.readLoginAndPasswd());
                             isRunning = authenticator.loggedUser != null;
                             isLoged = true;
                             if (!isRunning) {
@@ -52,12 +53,12 @@ public class Core {
             }
 
             while (isRunning) {
-                switch (GUI.showMenu()) {
+                switch (gui.showMenu()) {
                     case "1":
-                        GUI.listProducts();
+                        gui.listProducts();
                         break;
                     case "2":
-                        GUI.showBuyResult(productDB.buyProduct(GUI.readName(), GUI.readQunatity()));
+                        gui.showBuyResult(productDB.buyProduct(gui.readName(), gui.readQunatity()));
                         break;
                     case "3":
                         isRunning = false;
@@ -71,17 +72,17 @@ public class Core {
                         break;
                     case "5":
                         if (authenticator.loggedUser != null && authenticator.loggedUser.getRole().equals(Role.ADMIN)) {
-                            GUI.showAddResult(productDB.addQuantity(GUI.readName(), GUI.readQunatity()));
+                            gui.showAddResult(productDB.addQuantity(gui.readName(), gui.readQunatity()));
                         }
                         break;
                     case "6":
                         if (authenticator.loggedUser != null && authenticator.loggedUser.getRole().equals(Role.ADMIN)){
-                            GUI.listUsers();
+                            gui.listUsers();
                         }
                         break;
                     case "7":
                         if (authenticator.loggedUser != null && authenticator.loggedUser.getRole().equals(Role.ADMIN)){
-                            GUI.showGrantResult(userDB.grantUser(GUI.readUser()));
+                            gui.showGrantResult(userDB.grantUser(gui.readUser()));
                         }
                         break;
                     default:

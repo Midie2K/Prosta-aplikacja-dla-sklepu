@@ -1,7 +1,7 @@
 package pl.edu.wszib.sklep.model;
 
 
-public class Product {
+public sealed class Product permits Pioro, Piornik, Plecak, Gumka, Zeszyt{
     private String name;
     private double price;
     private int quantity;
