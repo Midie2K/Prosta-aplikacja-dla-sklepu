@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDB {
-    private List<User> users = new ArrayList<User>();
+    private List<User> users = new ArrayList<>();
     private static final UserDB instance = new UserDB();
 
 
@@ -22,36 +22,43 @@ public class UserDB {
         users.add(user);
     }
     public User findByLogin(String login) {
-        for (User user : this.users) {
-            if (user.getLogin().equals(login)) {
-                return user;
-            }
-        }
-        return null;
+        User user = users.stream()
+                .filter(user1 -> login.equals(user1.getLogin()))
+                .findAny()
+                .orElse(null);
+        return user;
     }
 
     public void getUsers() {
-        for(User user:users){
-            System.out.println(user);
-        }
+        System.out.println(users.stream().toList());
     }
 
     public boolean ifUserExist(String login) {
-        for (User user : this.users) {
-            if (user.getLogin().equals(login)) {
-                return true;
-            }
+        long count = users.stream().
+                filter(user -> user.getLogin().equals(login))
+                .count();
+
+        if(count == 1){
+            return true;
         }
-        return false;
+        else{
+            return false;
+        }
+
     }
 
     public boolean grantUser(String name) {
-        for(User user : this.users) {
-            if(user.getLogin().equals(name) && user.getRole().equals(Role.USER)) {
-                user.setRole(Role.ADMIN);
-                return true;
-            }
-        }
-        return false;
+             User user = users.stream()
+                     .filter(user1 -> name.equals(user1.getLogin()))
+                     .findAny()
+                     .orElse(null);
+
+             if (user != null && user.getRole().equals(Role.USER)){
+                 user.setRole(Role.ADMIN);
+                 return true;
+             }
+             else{
+                 return false;
+             }
     }
 }
