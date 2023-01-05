@@ -30,7 +30,10 @@ public class UserDB {
     }
 
     public void getUsers() {
-        System.out.println(users.stream().toList());
+        System.out.println(users.stream().toList().
+                toString().replace("[","").
+                replace("]","").
+                replace(", ","\n"));;
     }
 
     public boolean ifUserExist(String login) {

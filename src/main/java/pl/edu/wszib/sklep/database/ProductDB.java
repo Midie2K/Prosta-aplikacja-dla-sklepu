@@ -21,7 +21,10 @@ public class ProductDB {
     }
 
     public void getProducts() {
-        System.out.println(products.stream().toList());
+        System.out.println(products.stream().toList().
+                toString().replace("[","").
+                replace("]","").
+                replace(", ","\n"));
     }
 
     public boolean buyProduct(String name, String quantity) {
